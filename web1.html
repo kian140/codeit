@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<textarea id="editor" rows="12" cols="60"></textarea>
+
+<pre style="background-color: #443; color: white;" id="output"></pre>
+
+<script>
+const keywords = {
+    1: {color: "lime" },
+	let: {color: "red" },
+	if: {color: "red" },
+	else: {color: "red" }
+};
+
+const editor = document.getElementById("editor");
+const output = document.getElementById("output");
+
+function highlight() {
+    let html = editor.value;
+
+    for (const word in keywords) {
+        const regex = new RegExp("\\b" + word + "\\b", "g");
+        html = html.replace(
+            regex,
+            '<span style="color:' + keywords[word].color + ';">' + word + '</span>'
+        );
+    }
+
+    output.innerHTML = html;
+}
+
+editor.addEventListener("input", highlight);
+highlight();
+</script>
+
+</body>
+</html>
